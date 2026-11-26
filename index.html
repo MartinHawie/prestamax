@@ -413,6 +413,10 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
   .rv{opacity:1;transform:none;filter:none;transition:none}
   .slides .s.on img,.song::before{animation:none}
 }
+
+body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+input,select,textarea{-webkit-user-select:text;user-select:text}
+img{-webkit-user-drag:none;user-drag:none}
 </style>
 </head>
 <body>
@@ -873,6 +877,11 @@ fm.addEventListener('submit',e=>{e.preventDefault();const d=new FormData(fm);let
   const t='Hola PRESTAMAX, quiero solicitar un préstamo.%0A%0A'+[['Nombre','nombre'],['WhatsApp','whatsapp'],['Distrito','distrito'],['Vehículo','vehiculo'],['Marca y modelo','modelo'],['Año','anio'],['Monto','monto'],['Para','motivo']].filter(([,k])=>d.get(k)).map(([l,k])=>l+': '+encodeURIComponent(d.get(k))).join('%0A');
   go.href='https://wa.me/51985780398?text='+t;go.click();
   msg.textContent='¡Listo! Se abrió WhatsApp con tu solicitud. Si no se abrió, escríbenos al 985 780 398.';});})();
+
+// Protección: sin copiar ni botón derecho
+(()=>{const ok=e=>e.target.closest&&e.target.closest('input,select,textarea');
+['contextmenu','copy','cut','dragstart','selectstart'].forEach(ev=>document.addEventListener(ev,e=>{if(!ok(e))e.preventDefault()}));
+document.addEventListener('keydown',e=>{const k=e.key.toLowerCase();if((e.ctrlKey||e.metaKey)&&['c','x','u','s','a','p'].includes(k)&&!ok(e))e.preventDefault()});})();
 </script>
 </body>
 </html>
