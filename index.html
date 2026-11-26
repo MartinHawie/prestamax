@@ -734,7 +734,6 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
 
     <h6>Agregar al proyecto · opcional</h6>
     <label class="row chk"><div><b><input type="checkbox" id="tVid"><i class="bx"></i>Videoclip musical "Soy su amigo PRESTAMAX"</b><span>Solo baile, pensado para hacerse viral. Incluye coreógrafo y ensayos, bailarines, un día de rodaje y edición</span></div><div class="amt">S/ 6,000</div></label>
-    <label class="row chk"><div><b><input type="checkbox" id="tAg"><i class="bx"></i>Agente inteligente para WhatsApp</b><span>Responde las preguntas de los clientes y agenda reuniones con los asesores, las 24 horas. Lo programamos, lo conectamos al WhatsApp de PRESTAMAX y lo entregamos funcionando. El uso de la plataforma lo paga PRESTAMAX directo al proveedor</span></div><div class="amt">S/ 2,500</div></label>
 
     <h6>Mantenimiento después de la campaña · S/ 3,400 al mes</h6>
     <p class="pnote">Empieza cuando terminan los 3 meses de campaña. Incluye la producción de las piezas nuevas de cada mes: 8 piezas con Don Max y un caso de éxito real. Además, planificación mensual, gestión de redes y de la publicidad pagada, seguimiento e informe de resultados.</p>
@@ -749,7 +748,6 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
     <div class="sumbox">
       <div class="crow"><span>Proyecto inicial</span><span>S/ 26,300</span></div>
       <div class="crow" id="vRow"><span>Videoclip musical</span><span>S/ 6,000</span></div>
-      <div class="crow" id="aRow"><span>Agente inteligente para WhatsApp</span><span>S/ 2,500</span></div>
       <div class="crow"><span>Mantenimiento elegido</span><span id="mAmt">S/ 0</span></div>
       <div class="crow"><span>Subtotal sin IGV</span><span id="sub">S/ 0</span></div>
       <label class="crow igv"><span><input type="checkbox" id="tIgv" checked><i class="bx"></i>IGV (18 %)</span><span id="igv">S/ 0</span></label>
@@ -856,15 +854,15 @@ document.getElementById('closeBudget').onclick=close;m.onclick=e=>{if(e.target==
 addEventListener('keydown',e=>{if(e.key==='Escape')close()})})();
 
 // Calculadora de presupuesto
-(()=>{const $=id=>document.getElementById(id),PROD=26300,MES=3400,VID=6000,AG=2500;
+(()=>{const $=id=>document.getElementById(id),PROD=26300,MES=3400,VID=6000;
 const f=x=>'S/ '+x.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
-function calc(){const m=+document.querySelector('input[name=mm]:checked').value,v=$('tVid').checked?VID:0,ag=$('tAg').checked?AG:0,ma=m*MES,sub=PROD+v+ag+ma,ig=$('tIgv').checked,igv=ig?sub*.18:0;
-  $('vRow').style.display=v?'':'none';$('aRow').style.display=ag?'':'none';
+function calc(){const m=+document.querySelector('input[name=mm]:checked').value,v=$('tVid').checked?VID:0,ma=m*MES,sub=PROD+v+ma,ig=$('tIgv').checked,igv=ig?sub*.18:0;
+  $('vRow').style.display=v?'':'none';
   $('mAmt').textContent=f(ma);$('sub').textContent=f(sub);$('igv').textContent=f(sub*.18);$('grand').textContent=f(sub+igv);
   $('gLab').textContent=ig?'Inversión total con IGV':'Inversión total sin IGV';$('tIgv').closest('.igv').classList.toggle('off',!ig);
-  const ad=(PROD+v+ag)*(ig?1.18:1)/2;
+  const ad=(PROD+v)*(ig?1.18:1)/2;
   $('adel').textContent='Proyecto inicial: 50 % de adelanto ('+f(ad)+(ig?' con IGV':' sin IGV')+') y 50 % contra entrega. El mantenimiento se factura por el periodo contratado.';}
-document.querySelectorAll('input[name=mm],#tVid,#tAg,#tIgv').forEach(i=>i.addEventListener('change',calc));
+document.querySelectorAll('input[name=mm],#tVid,#tIgv').forEach(i=>i.addEventListener('change',calc));
 calc()})();
 
 // Formulario de solicitud
